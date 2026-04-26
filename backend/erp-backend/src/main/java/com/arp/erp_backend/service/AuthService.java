@@ -15,6 +15,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder  passwordEncoder;
+    private final JwtService jwtService;
 
     public String register(RegisterRequest request) {
         // create new user object
@@ -43,7 +44,7 @@ public class AuthService {
             throw new RuntimeException("Invalid password");
         }
 
-        return ("Login successfully");
+        return jwtService.generateToken(user.getEmail());
     }
 
 }
