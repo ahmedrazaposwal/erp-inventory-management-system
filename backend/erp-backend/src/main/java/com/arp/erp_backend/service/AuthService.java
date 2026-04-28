@@ -3,6 +3,7 @@ package com.arp.erp_backend.service;
 
 import com.arp.erp_backend.dto.LoginRequest;
 import com.arp.erp_backend.dto.RegisterRequest;
+import com.arp.erp_backend.entity.Role;
 import com.arp.erp_backend.entity.User;
 import com.arp.erp_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class AuthService {
         // encrypt password before saving
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        user.setRole("USER");
+        user.setRole(Role.USER);
         userRepository.save(user);
         return "User registered successfully";
     }
