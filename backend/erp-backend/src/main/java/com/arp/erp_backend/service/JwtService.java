@@ -24,4 +24,13 @@ public class JwtService {
                 .signWith(SignatureAlgorithm.HS256, secret_key)
                 .compact();
     }
+
+    public String extractEmail(String token) {
+        return Jwts.parser()
+                .setSigningKey(secret_key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload()
+                .getSubject();
+    }
 }
