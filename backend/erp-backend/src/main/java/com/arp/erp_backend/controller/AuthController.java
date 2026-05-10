@@ -1,7 +1,7 @@
 package com.arp.erp_backend.controller;
 
-import com.arp.erp_backend.dto.LoginRequest;
-import com.arp.erp_backend.dto.RegisterRequest;
+import com.arp.erp_backend.dto.auth.LoginRequestDTO;
+import com.arp.erp_backend.dto.auth.RegisterRequestDTO;
 import com.arp.erp_backend.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,12 +17,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterRequest request) {
+    public String register(@RequestBody RegisterRequestDTO request) {
         return authService.register(request);
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request) {
+    public String login(@RequestBody LoginRequestDTO request) {
         return authService.login(request);
     }
 }

@@ -1,8 +1,8 @@
 package com.arp.erp_backend.service;
 
 
-import com.arp.erp_backend.dto.LoginRequest;
-import com.arp.erp_backend.dto.RegisterRequest;
+import com.arp.erp_backend.dto.auth.LoginRequestDTO;
+import com.arp.erp_backend.dto.auth.RegisterRequestDTO;
 import com.arp.erp_backend.entity.Role;
 import com.arp.erp_backend.entity.User;
 import com.arp.erp_backend.repository.UserRepository;
@@ -18,7 +18,7 @@ public class AuthService {
     private final BCryptPasswordEncoder  passwordEncoder;
     private final JwtService jwtService;
 
-    public String register(RegisterRequest request) {
+    public String register(RegisterRequestDTO request) {
         // create new user object
         User user = new User();
         user.setName(request.getName());
@@ -32,7 +32,7 @@ public class AuthService {
         return "User registered successfully";
     }
 
-    public String login(LoginRequest request) {
+    public String login(LoginRequestDTO request) {
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 

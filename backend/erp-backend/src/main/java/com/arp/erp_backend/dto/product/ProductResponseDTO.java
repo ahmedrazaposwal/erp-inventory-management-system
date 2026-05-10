@@ -1,4 +1,4 @@
-package com.arp.erp_backend.dto;
+package com.arp.erp_backend.dto.product;
 
 import lombok.Builder;
 import lombok.Data;
@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
-public class ProductResponse {
+public class ProductResponseDTO {
 
     private Long id;
 

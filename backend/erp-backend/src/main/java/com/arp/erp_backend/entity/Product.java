@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -43,6 +44,9 @@ public class Product {
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "product")
+    private List<InventoryTransaction> inventoryTransactions;
 
     @PrePersist
     public void prePersist() {

@@ -1,9 +1,9 @@
-package com.arp.erp_backend.dto;
+package com.arp.erp_backend.dto.auth;
 
 import lombok.Data;
 
 @Data
-public class RegisterRequest {
+public class RegisterRequestDTO {
     private String name;
     private String email;
     private String password;
