@@ -1,28 +1,27 @@
 package com.arp.erp_backend.service;
 
-import com.arp.erp_backend.dto.inventory.InventoryRequestDTO;
-import com.arp.erp_backend.dto.inventory.InventoryResponseDTO;
+import com.arp.erp_backend.dto.inventory.InventoryTransactionRequestDTO;
+import com.arp.erp_backend.dto.inventory.InventoryTransactionResponseDTO;
 import com.arp.erp_backend.entity.InventoryMovementType;
 import com.arp.erp_backend.entity.InventoryTransaction;
 import com.arp.erp_backend.entity.Product;
-import com.arp.erp_backend.repository.InventoryRepository;
+import com.arp.erp_backend.repository.InventoryTransactionRepository;
 import com.arp.erp_backend.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class InventoryServiceImpl implements InventoryService{
+public class InventoryTransactionServiceImpl implements InventoryTransactionService {
 
-    private final InventoryRepository inventoryRepository;
+    private final InventoryTransactionRepository inventoryRepository;
     private  final ProductRepository productRepository;
 
     @Override
-    public InventoryResponseDTO stockIn(InventoryRequestDTO requestDTO) {
+    public InventoryTransactionResponseDTO stockIn(InventoryTransactionRequestDTO requestDTO) {
         Product product = productRepository.findById(requestDTO.getProductId())
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
@@ -42,7 +41,7 @@ public class InventoryServiceImpl implements InventoryService{
     }
 
     @Override
-    public InventoryResponseDTO stockOut(InventoryRequestDTO requestDTO) {
+    public InventoryTransactionResponseDTO stockOut(InventoryTransactionRequestDTO requestDTO) {
         Product product = productRepository.findById(requestDTO.getProductId())
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
@@ -66,7 +65,7 @@ public class InventoryServiceImpl implements InventoryService{
     }
 
     @Override
-    public List<InventoryResponseDTO> getInventoryHistory(Long productId) {
+    public List<InventoryTransactionResponseDTO> getInventoryHistory(Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
@@ -76,8 +75,8 @@ public class InventoryServiceImpl implements InventoryService{
                 .collect(Collectors.toList());
     }
 
-    private InventoryResponseDTO mapToResponse(InventoryTransaction transaction) {
-        return InventoryResponseDTO.builder()
+    private InventoryTransactionResponseDTO mapToResponse(InventoryTransaction transaction) {
+        return InventoryTransactionResponseDTO.builder()
                 .id(transaction.getId())
                 .productId(transaction.getProduct().getId())
                 .productName(transaction.getProduct().getName())

@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface InventoryRepository extends JpaRepository<InventoryTransaction, Long> {
+public interface InventoryTransactionRepository extends JpaRepository<InventoryTransaction, Long> {
     List<InventoryTransaction> findByProduct(Product product);
 }

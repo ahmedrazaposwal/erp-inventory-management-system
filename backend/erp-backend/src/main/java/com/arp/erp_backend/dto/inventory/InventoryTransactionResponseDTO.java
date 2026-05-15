@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class InventoryResponseDTO {
+public class InventoryTransactionResponseDTO {
 
     private Long id;
     private Long productId;
