@@ -100,7 +100,7 @@ Add your local configuration:
 DB_USERNAME=your_postgresql_username
 DB_PASSWORD=your_postgresql_password
 SECRET_KEY=replace_with_a_long_secure_secret
-JWTExpirationMS=86400000
+JWTExpirationMS=1234567 #  JWT expiration time in milliseconds (1,234,567 ms ≈ 20 minutes)
 ```
 
 Do not commit this file. It contains sensitive information and is ignored by Git.
