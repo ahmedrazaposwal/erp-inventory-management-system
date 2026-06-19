@@ -77,13 +77,13 @@ Install the following before running the project:
 Create a PostgreSQL database:
 
 ```sql
-CREATE DATABASE erp_db;
+CREATE DATABASE <database_name>;
 ```
 
 The backend connects to:
 
 ```text
-jdbc:postgresql://localhost:5432/erp_db
+jdbc:postgresql://localhost:5432/<database_name>
 ```
 
 ## Backend Configuration
