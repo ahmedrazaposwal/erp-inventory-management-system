@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Run ERP Backend",
+            "request": "launch",
+            "mainClass": "com.arp.erp_backend.ErpBackendApplication",
+            "projectName": "erp-backend",
+            "cwd": "${workspaceFolder}/backend",
+            "envFile": "${workspaceFolder}/backend/.env",
+            "console": "integratedTerminal"
+        }
+    ]
+}
