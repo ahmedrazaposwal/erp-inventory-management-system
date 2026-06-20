@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx'
 import AppLayout from './components/layout/AppLayout.jsx'
 import PublicLayout from './components/layout/PublicLayout.jsx'
 import ProductsPage from './pages/ProductsPage.jsx'
+import AddProductPage from './pages/AddProductPage.jsx'
 
 import './App.css'
 
@@ -25,6 +26,7 @@ function App() {
           <Route element={<AppLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/products" element={<ProductsPage />} />
+            <Route path="/products/new" element={<AddProductPage />} />
           </Route>
         </Route>
 
