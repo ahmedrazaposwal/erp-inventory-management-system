@@ -22,6 +22,7 @@ function LoginForm() {
             })
 
             sessionStorage.setItem('accessToken', token)
+            sessionStorage.setItem('userEmail', email.trim())
             navigation('/dashboard')
 
         } catch (error) {
