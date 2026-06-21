@@ -1,7 +1,20 @@
-import { useEffect, useState } from 'react'
-import { CheckCircle2, ChevronLeft, ChevronRight, Plus, Search, X } from 'lucide-react'
-import { getProducts, searchProducts } from '../services/productService.js'
+import { use, useEffect, useState } from 'react'
+import {
+    CheckCircle2,
+    ChevronLeft,
+    ChevronRight,
+    Plus,
+    Search,
+    Trash2,
+    X,
+} from 'lucide-react'
+import {
+    getProducts,
+    searchProducts,
+    deleteProduct
+} from '../services/productService.js'
 import { Link, useLocation, useNavigate } from 'react-router'
+import ConfirmDialog from '../components/common/ConfirmDialog.jsx'
 
 import './ProductsPage.css'
 
@@ -10,8 +23,16 @@ function ProductsPage() {
     const [currentPage, setCurrentPage] = useState(0)
     const [isLoading, setIsLoading] = useState(true)
     const [errorMessage, setErrorMessage] = useState('')
+
     const [searchTerm, setSearchTerm] = useState('')
     const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('')
+
+    const [productToDelete, setProductToDelete] = useState(null)
+    const [isDeleting, setIsDeleting] = useState(false)
+    const [deleteError, setDeleteError] = useState('')
+    const [refreshKey, setRefreshKey] = useState(0)
+
+
 
     const location = useLocation()
     const navigate = useNavigate()
@@ -23,6 +44,43 @@ function ProductsPage() {
             replace: true,
             state: null,
         })
+    }
+
+    async function handleDeleteProduct() {
+        if (!productToDelete) {
+            return
+        }
+
+        const deleteProductName = productToDelete.name
+
+        setIsDeleting(true)
+        setDeleteError('')
+
+        try {
+            await deleteProduct(productToDelete.id)
+            setProductToDelete(null)
+
+            if (productPage.content.length === 1 && currentPage > 0) {
+                setCurrentPage((page) => page - 1)
+            } else {
+                setRefreshKey((key) => key + 1)
+            }
+
+            navigate(location.pathname, {
+                replace: true,
+                state: {
+                    successMessage: `${deleteProductName} deleted successfully.`
+                }
+            })
+
+        } catch (error) {
+            const message =
+                error instanceof Error ? error.message : 'Unable to delete the product.'
+
+            setDeleteError(message)
+        } finally {
+            setIsDeleting(false)
+        }
     }
 
     useEffect(() => {
@@ -57,7 +115,7 @@ function ProductsPage() {
 
         }
         loadProducts()
-    }, [currentPage, debouncedSearchTerm])
+    }, [currentPage, debouncedSearchTerm, refreshKey])
 
     return (
         <section className='products-page'>
@@ -90,6 +148,12 @@ function ProductsPage() {
                     >
                         <X size={18} aria-hidden="true" />
                     </button>
+                </div>
+            )}
+
+            {deleteError && (
+                <div className="products-action-error" role="alert">
+                    <p>{deleteError}</p>
                 </div>
             )}
 
@@ -144,6 +208,7 @@ function ProductsPage() {
                                         <th scope="col">Category</th>
                                         <th scope="col">Selling price</th>
                                         <th scope="col">Stock</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
 
@@ -171,6 +236,19 @@ function ProductsPage() {
                                                     {product.quantity > 0 ? `${product.quantity} available` : 'Out of stock'}
                                                 </span>
                                             </td>
+
+                                            <td><button
+                                                className='product-delete-button'
+                                                type='button'
+                                                aria-label={`Delete ${product.name}`}
+                                                onClick={() => {
+                                                    setDeleteError('')
+                                                    setProductToDelete(product)
+                                                }}
+                                            >
+                                                <Trash2 size={17} aria-hidden="true" />
+                                            </button></td>
+
                                         </tr>
                                     ))}
                                 </tbody>
@@ -209,6 +287,18 @@ function ProductsPage() {
 
                     </footer>
                 </div>
+            )}
+
+
+            {productToDelete && (
+                <ConfirmDialog
+                    title="Delete products"
+                    message={`This will remove “${productToDelete.name}” from the active product catalogue.`}
+                    confirmLabel="Delete product"
+                    isConfirming={isDeleting}
+                    onConfirm={handleDeleteProduct}
+                    onCancel={() => setProductToDelete(null)}
+                />
             )}
 
 

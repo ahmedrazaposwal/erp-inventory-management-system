@@ -350,3 +350,51 @@
         padding-left: 2px;
     }
 }
+
+.product-table th:last-child,
+.product-table td:last-child {
+    width: 90px;
+    text-align: right;
+}
+
+.product-delete-button {
+    width: 34px;
+    height: 34px;
+    display: inline-grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: var(--radius-small);
+    color: #94a3b8;
+    background-color: transparent;
+    cursor: pointer;
+    transition:
+        color 150ms ease,
+        border-color 150ms ease,
+        background-color 150ms ease;
+}
+
+.product-delete-button:hover {
+    color: var(--color-danger);
+    border-color: #fecaca;
+    background-color: #fef2f2;
+}
+
+.product-delete-button:focus-visible {
+    outline: 3px solid #fecaca;
+    outline-offset: 2px;
+}
+
+.products-action-error {
+    padding: 14px 16px;
+    border: 1px solid #fecaca;
+    border-radius: var(--radius-medium);
+    color: var(--color-danger);
+    background-color: #fef2f2;
+}
+
+.products-action-error p {
+    margin: 0;
+    font-size: 0.88rem;
+    font-weight: 600;
+}

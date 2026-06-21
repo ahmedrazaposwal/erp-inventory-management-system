@@ -21,3 +21,9 @@ export function searchProducts(keyword, page = 0, size = 10) {
     return apiRequest(`/api/products/search?${parameters.toString()}`)
 
 }
+
+export function deleteProduct(productId) {
+    return apiRequest(`/api/products/${productId}`, {
+        method: 'DELETE',
+    })
+}
