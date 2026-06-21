@@ -23,30 +23,48 @@ The backend provides secured REST APIs, while the React frontend provides a resp
 - React Router
 - CSS
 - ESLint
+- Lucide React icons
 
 ## Features
 
-### Implemented
+### Backend
 
 - User registration and login
 - JWT-based authentication
-- Protected frontend routes
-- Product management
+- Role-based API security
+- Product CRUD operations with pagination and search
 - Supplier management
-- Purchase-order management
-- Purchase-order receiving
-- Automatic inventory updates
+- Purchase-order creation and receiving
+- Automatic inventory updates when orders are received
 - Stock-in and stock-out transactions
 - Inventory transaction history
+- PostgreSQL persistence
+
+### Frontend
+
+- Responsive React application layout
+- Protected routes
+- Login and logout workflow
+- JWT-authenticated API requests
+- Responsive sidebar and header
+- API-powered inventory dashboard
+- Product statistics
+- Paginated product table
+- Debounced product search
+- Product creation form
+- Product soft deletion with confirmation dialog
+- Loading, success, empty, and error states
+- Accessible controls and responsive styling
 
 ### In Progress
 
-- Professional dashboard
-- Responsive application sidebar and header
-- Product and supplier interfaces
+- Product editing
+- Supplier interface
 - Purchase-order interface
-- Inventory reports
+- Inventory-movement interface
+- Reports and charts
 - Role-based frontend navigation
+- Improved authentication and token-expiration handling
 
 ## Project Structure
 
@@ -100,8 +118,9 @@ Add your local configuration:
 DB_USERNAME=your_postgresql_username
 DB_PASSWORD=your_postgresql_password
 SECRET_KEY=replace_with_a_long_secure_secret
-JWTExpirationMS=1234567 #  JWT expiration time in milliseconds (1,234,567 ms ≈ 20 minutes)
-```
+
+# JWT expiration time in milliseconds (1,234,567 ms ≈ 20 minutes 35 seconds)
+JWTExpirationMS=1234567
 
 Do not commit this file. It contains sensitive information and is ignored by Git.
 
@@ -229,9 +248,17 @@ cd backend
 ./mvnw test
 ```
 
+
+### 3. Replace `## Development Status`
+
+```markdown
 ## Development Status
 
-This project is actively being developed. The backend inventory functionality is available, while the React interface is being built incrementally.
+This project is under active development.
+
+The Spring Boot backend supports authentication, products, suppliers, purchase orders, and inventory transactions. The React frontend currently includes authentication, protected navigation, an API-powered dashboard, and product creation, search, pagination, and deletion workflows.
+
+Product editing and the remaining supplier, purchasing, inventory, and reporting interfaces are planned next.
 
 ## Author
 
